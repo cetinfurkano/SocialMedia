@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SozlukForumModelStoreContainer" CdmEntityContainer="SozlukEntitiesTest">
+    <EntitySetMapping Name="BlokBilgileri">
+      <EntityTypeMapping TypeName="SozlukForumModel.BlokBilgileri">
+        <MappingFragment StoreEntitySet="BlokBilgileri">
+          <ScalarProperty Name="BlokBilgiId" ColumnName="BlokBilgiId" />
+          <ScalarProperty Name="BlokPaylasimId" ColumnName="BlokPaylasimId" />
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BloklananPaylasimlar">
+      <EntityTypeMapping TypeName="SozlukForumModel.BloklananPaylasimlar">
+        <MappingFragment StoreEntitySet="BloklananPaylasimlar">
+          <ScalarProperty Name="BlokPaylasimId" ColumnName="BlokPaylasimId" />
+          <ScalarProperty Name="PaylasimId" ColumnName="PaylasimId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Etkilesimler">
+      <EntityTypeMapping TypeName="SozlukForumModel.Etkilesimler">
+        <MappingFragment StoreEntitySet="Etkilesimler">
+          <ScalarProperty Name="EtkilesimId" ColumnName="EtkilesimId" />
+          <ScalarProperty Name="PaylasimId" ColumnName="PaylasimId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategoriler">
+      <EntityTypeMapping TypeName="SozlukForumModel.Kategoriler">
+        <MappingFragment StoreEntitySet="Kategoriler">
+          <ScalarProperty Name="KategoriId" ColumnName="KategoriId" />
+          <ScalarProperty Name="KategoriAdi" ColumnName="KategoriAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kullanicilar">
+      <EntityTypeMapping TypeName="SozlukForumModel.Kullanicilar">
+        <MappingFragment StoreEntitySet="Kullanicilar">
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+          <ScalarProperty Name="Ad" ColumnName="Ad" />
+          <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+          <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+          <ScalarProperty Name="Eposta" ColumnName="Eposta" />
+          <ScalarProperty Name="Parola" ColumnName="Parola" />
+          <ScalarProperty Name="Yetki" ColumnName="Yetki" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Paylasimlar">
+      <EntityTypeMapping TypeName="SozlukForumModel.Paylasimlar">
+        <MappingFragment StoreEntitySet="Paylasimlar">
+          <ScalarProperty Name="PaylasimId" ColumnName="PaylasimId" />
+          <ScalarProperty Name="KategoriId" ColumnName="KategoriId" />
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+          <ScalarProperty Name="PaylasimTipi" ColumnName="PaylasimTipi" />
+          <ScalarProperty Name="GirilmeZamani" ColumnName="GirilmeZamani" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RaporBilgileri">
+      <EntityTypeMapping TypeName="SozlukForumModel.RaporBilgileri">
+        <MappingFragment StoreEntitySet="RaporBilgileri">
+          <ScalarProperty Name="RaporBilgiId" ColumnName="RaporBilgiId" />
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+          <ScalarProperty Name="RaporId" ColumnName="RaporId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RaporlananPaylasimlar">
+      <EntityTypeMapping TypeName="SozlukForumModel.RaporlananPaylasimlar">
+        <MappingFragment StoreEntitySet="RaporlananPaylasimlar">
+          <ScalarProperty Name="RaporId" ColumnName="RaporId" />
+          <ScalarProperty Name="PaylasimId" ColumnName="PaylasimId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Resimler">
+      <EntityTypeMapping TypeName="SozlukForumModel.Resimler">
+        <MappingFragment StoreEntitySet="Resimler">
+          <ScalarProperty Name="ResimId" ColumnName="ResimId" />
+          <ScalarProperty Name="ResimYolu" ColumnName="ResimYolu" />
+          <ScalarProperty Name="ResimAdi" ColumnName="ResimAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TakipEdenler">
+      <EntityTypeMapping TypeName="SozlukForumModel.TakipEdenler">
+        <MappingFragment StoreEntitySet="TakipEdenler">
+          <ScalarProperty Name="TakipEtId" ColumnName="TakipEtId" />
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TakipEdilenBilgileri">
+      <EntityTypeMapping TypeName="SozlukForumModel.TakipEdilenBilgileri">
+        <MappingFragment StoreEntitySet="TakipEdilenBilgileri">
+          <ScalarProperty Name="TakipEdilenBilgiId" ColumnName="TakipEdilenBilgiId" />
+          <ScalarProperty Name="TakipEdilenId" ColumnName="TakipEdilenId" />
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TakipEdilenler">
+      <EntityTypeMapping TypeName="SozlukForumModel.TakipEdilenler">
+        <MappingFragment StoreEntitySet="TakipEdilenler">
+          <ScalarProperty Name="TakipEdilenId" ColumnName="TakipEdilenId" />
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TakipEtmeBilgileri">
+      <EntityTypeMapping TypeName="SozlukForumModel.TakipEtmeBilgileri">
+        <MappingFragment StoreEntitySet="TakipEtmeBilgileri">
+          <ScalarProperty Name="TakipEtBilgiId" ColumnName="TakipEtBilgiId" />
+          <ScalarProperty Name="TakipEtId" ColumnName="TakipEtId" />
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Yorumlar">
+      <EntityTypeMapping TypeName="SozlukForumModel.Yorumlar">
+        <MappingFragment StoreEntitySet="Yorumlar">
+          <ScalarProperty Name="YorumId" ColumnName="YorumId" />
+          <ScalarProperty Name="EtkilesimId" ColumnName="EtkilesimId" />
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+          <ScalarProperty Name="YorumTipi" ColumnName="YorumTipi" />
+          <ScalarProperty Name="YapilmaZamani" ColumnName="YapilmaZamani" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PaylasimMetinleri">
+      <EntityTypeMapping TypeName="SozlukForumModel.PaylasimMetinleri">
+        <MappingFragment StoreEntitySet="PaylasimMetinleri">
+          <ScalarProperty Name="PaylasimId" ColumnName="PaylasimId" />
+          <ScalarProperty Name="GirilenMetin" ColumnName="GirilenMetin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="YorumMetinleri">
+      <EntityTypeMapping TypeName="SozlukForumModel.YorumMetinleri">
+        <MappingFragment StoreEntitySet="YorumMetinleri">
+          <ScalarProperty Name="YorumId" ColumnName="YorumId" />
+          <ScalarProperty Name="YorumMetni" ColumnName="YorumMetni" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="EtkilesimDislike" TypeName="SozlukForumModel.EtkilesimDislike" StoreEntitySet="EtkilesimDislike">
+      <EndProperty Name="Kullanicilar">
+        <ScalarProperty Name="KullaniciId" ColumnName="BegenmeyenKullaniciId" />
+      </EndProperty>
+      <EndProperty Name="Etkilesimler">
+        <ScalarProperty Name="EtkilesimId" ColumnName="EtkilesimId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EtkilesimLike" TypeName="SozlukForumModel.EtkilesimLike" StoreEntitySet="EtkilesimLike">
+      <EndProperty Name="Kullanicilar">
+        <ScalarProperty Name="KullaniciId" ColumnName="BegenenKullaniciId" />
+      </EndProperty>
+      <EndProperty Name="Etkilesimler">
+        <ScalarProperty Name="EtkilesimId" ColumnName="EtkilesimId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PaylasimResimleri" TypeName="SozlukForumModel.PaylasimResimleri" StoreEntitySet="PaylasimResimleri">
+      <EndProperty Name="Paylasimlar">
+        <ScalarProperty Name="PaylasimId" ColumnName="PaylasimId" />
+      </EndProperty>
+      <EndProperty Name="Resimler">
+        <ScalarProperty Name="ResimId" ColumnName="ResimId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProfilResimleri" TypeName="SozlukForumModel.ProfilResimleri" StoreEntitySet="ProfilResimleri">
+      <EndProperty Name="Kullanicilar">
+        <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+      </EndProperty>
+      <EndProperty Name="Resimler">
+        <ScalarProperty Name="ResimId" ColumnName="ResimId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="YorumResimleri" TypeName="SozlukForumModel.YorumResimleri" StoreEntitySet="YorumResimleri">
+      <EndProperty Name="Resimler">
+        <ScalarProperty Name="ResimId" ColumnName="ResimId" />
+      </EndProperty>
+      <EndProperty Name="Yorumlar">
+        <ScalarProperty Name="YorumId" ColumnName="YorumId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

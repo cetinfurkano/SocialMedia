@@ -1,0 +1,539 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SozlukForumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BlokBilgileri">
+    <Key>
+      <PropertyRef Name="BlokBilgiId" />
+    </Key>
+    <Property Name="BlokBilgiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BlokPaylasimId" Type="Int32" Nullable="false" />
+    <Property Name="KullaniciId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Kullanicilar" Relationship="Self.fk_BlokKullanici" FromRole="BlokBilgileri" ToRole="Kullanicilar" />
+    <NavigationProperty Name="BloklananPaylasimlar" Relationship="Self.fk_BlokPaylasim" FromRole="BlokBilgileri" ToRole="BloklananPaylasimlar" />
+  </EntityType>
+  <EntityType Name="BloklananPaylasimlar">
+    <Key>
+      <PropertyRef Name="BlokPaylasimId" />
+    </Key>
+    <Property Name="BlokPaylasimId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PaylasimId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="BlokBilgileri" Relationship="Self.fk_BlokPaylasim" FromRole="BloklananPaylasimlar" ToRole="BlokBilgileri" />
+    <NavigationProperty Name="Paylasimlar" Relationship="Self.fk_PaylasimBlok" FromRole="BloklananPaylasimlar" ToRole="Paylasimlar" />
+  </EntityType>
+  <EntityType Name="Etkilesimler">
+    <Key>
+      <PropertyRef Name="EtkilesimId" />
+    </Key>
+    <Property Name="EtkilesimId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PaylasimId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Paylasimlar" Relationship="Self.fk_EtkilesimEntry" FromRole="Etkilesimler" ToRole="Paylasimlar" />
+    <NavigationProperty Name="Yorumlar" Relationship="Self.fk_YorumEtkilesim" FromRole="Etkilesimler" ToRole="Yorumlar" />
+    <NavigationProperty Name="Kullanicilar" Relationship="Self.EtkilesimDislike" FromRole="Etkilesimler" ToRole="Kullanicilar" />
+    <NavigationProperty Name="Kullanicilar1" Relationship="Self.EtkilesimLike" FromRole="Etkilesimler" ToRole="Kullanicilar" />
+  </EntityType>
+  <EntityType Name="Kategoriler">
+    <Key>
+      <PropertyRef Name="KategoriId" />
+    </Key>
+    <Property Name="KategoriId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KategoriAdi" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Paylasimlar" Relationship="Self.fk_KategoriPaylasim" FromRole="Kategoriler" ToRole="Paylasimlar" />
+  </EntityType>
+  <EntityType Name="Kullanicilar">
+    <Key>
+      <PropertyRef Name="KullaniciId" />
+    </Key>
+    <Property Name="KullaniciId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Eposta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Parola" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Yetki" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="BlokBilgileri" Relationship="Self.fk_BlokKullanici" FromRole="Kullanicilar" ToRole="BlokBilgileri" />
+    <NavigationProperty Name="Paylasimlar" Relationship="Self.fk_KullaniciPaylasim" FromRole="Kullanicilar" ToRole="Paylasimlar" />
+    <NavigationProperty Name="TakipEdenler" Relationship="Self.fk_KullaniciTakipEt" FromRole="Kullanicilar" ToRole="TakipEdenler" />
+    <NavigationProperty Name="Yorumlar" Relationship="Self.fk_KullaniciYorum" FromRole="Kullanicilar" ToRole="Yorumlar" />
+    <NavigationProperty Name="RaporBilgileri" Relationship="Self.fk_RaporBilgiKullanici" FromRole="Kullanicilar" ToRole="RaporBilgileri" />
+    <NavigationProperty Name="TakipEdilenler" Relationship="Self.fk_TakipEdilenKullanici" FromRole="Kullanicilar" ToRole="TakipEdilenler" />
+    <NavigationProperty Name="Etkilesimler" Relationship="Self.EtkilesimDislike" FromRole="Kullanicilar" ToRole="Etkilesimler" />
+    <NavigationProperty Name="Etkilesimler1" Relationship="Self.EtkilesimLike" FromRole="Kullanicilar" ToRole="Etkilesimler" />
+    <NavigationProperty Name="Resimler" Relationship="Self.ProfilResimleri" FromRole="Kullanicilar" ToRole="Resimler" />
+  </EntityType>
+  <EntityType Name="Paylasimlar">
+    <Key>
+      <PropertyRef Name="PaylasimId" />
+    </Key>
+    <Property Name="PaylasimId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KategoriId" Type="Int32" Nullable="false" />
+    <Property Name="KullaniciId" Type="Int32" Nullable="false" />
+    <Property Name="PaylasimTipi" Type="Int32" Nullable="false" />
+    <Property Name="GirilmeZamani" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="BloklananPaylasimlar" Relationship="Self.fk_PaylasimBlok" FromRole="Paylasimlar" ToRole="BloklananPaylasimlar" />
+    <NavigationProperty Name="Etkilesimler" Relationship="Self.fk_EtkilesimEntry" FromRole="Paylasimlar" ToRole="Etkilesimler" />
+    <NavigationProperty Name="Kategoriler" Relationship="Self.fk_KategoriPaylasim" FromRole="Paylasimlar" ToRole="Kategoriler" />
+    <NavigationProperty Name="Kullanicilar" Relationship="Self.fk_KullaniciPaylasim" FromRole="Paylasimlar" ToRole="Kullanicilar" />
+    <NavigationProperty Name="PaylasimMetinleri" Relationship="Self.fk_PaylasimMetni" FromRole="Paylasimlar" ToRole="PaylasimMetinleri" />
+    <NavigationProperty Name="RaporlananPaylasimlar" Relationship="Self.fk_PaylasimRapor" FromRole="Paylasimlar" ToRole="RaporlananPaylasimlar" />
+    <NavigationProperty Name="Resimler" Relationship="Self.PaylasimResimleri" FromRole="Paylasimlar" ToRole="Resimler" />
+  </EntityType>
+  <EntityType Name="RaporBilgileri">
+    <Key>
+      <PropertyRef Name="RaporBilgiId" />
+    </Key>
+    <Property Name="RaporBilgiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KullaniciId" Type="Int32" Nullable="false" />
+    <Property Name="RaporId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Kullanicilar" Relationship="Self.fk_RaporBilgiKullanici" FromRole="RaporBilgileri" ToRole="Kullanicilar" />
+    <NavigationProperty Name="RaporlananPaylasimlar" Relationship="Self.fk_RaporBilgiId" FromRole="RaporBilgileri" ToRole="RaporlananPaylasimlar" />
+  </EntityType>
+  <EntityType Name="RaporlananPaylasimlar">
+    <Key>
+      <PropertyRef Name="RaporId" />
+    </Key>
+    <Property Name="RaporId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PaylasimId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Paylasimlar" Relationship="Self.fk_PaylasimRapor" FromRole="RaporlananPaylasimlar" ToRole="Paylasimlar" />
+    <NavigationProperty Name="RaporBilgileri" Relationship="Self.fk_RaporBilgiId" FromRole="RaporlananPaylasimlar" ToRole="RaporBilgileri" />
+  </EntityType>
+  <EntityType Name="Resimler">
+    <Key>
+      <PropertyRef Name="ResimId" />
+    </Key>
+    <Property Name="ResimId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ResimYolu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ResimAdi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Paylasimlar" Relationship="Self.PaylasimResimleri" FromRole="Resimler" ToRole="Paylasimlar" />
+    <NavigationProperty Name="Kullanicilar" Relationship="Self.ProfilResimleri" FromRole="Resimler" ToRole="Kullanicilar" />
+    <NavigationProperty Name="Yorumlar" Relationship="Self.YorumResimleri" FromRole="Resimler" ToRole="Yorumlar" />
+  </EntityType>
+  <EntityType Name="TakipEdenler">
+    <Key>
+      <PropertyRef Name="TakipEtId" />
+    </Key>
+    <Property Name="TakipEtId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KullaniciId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Kullanicilar" Relationship="Self.fk_KullaniciTakipEt" FromRole="TakipEdenler" ToRole="Kullanicilar" />
+    <NavigationProperty Name="TakipEtmeBilgileri" Relationship="Self.fk_TakipEtBilgi" FromRole="TakipEdenler" ToRole="TakipEtmeBilgileri" />
+  </EntityType>
+  <EntityType Name="TakipEdilenBilgileri">
+    <Key>
+      <PropertyRef Name="TakipEdilenBilgiId" />
+    </Key>
+    <Property Name="TakipEdilenBilgiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TakipEdilenId" Type="Int32" Nullable="false" />
+    <Property Name="KullaniciId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TakipEdilenler" Relationship="Self.fk_TakipEdilenBilgi" FromRole="TakipEdilenBilgileri" ToRole="TakipEdilenler" />
+  </EntityType>
+  <EntityType Name="TakipEdilenler">
+    <Key>
+      <PropertyRef Name="TakipEdilenId" />
+    </Key>
+    <Property Name="TakipEdilenId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KullaniciId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Kullanicilar" Relationship="Self.fk_TakipEdilenKullanici" FromRole="TakipEdilenler" ToRole="Kullanicilar" />
+    <NavigationProperty Name="TakipEdilenBilgileri" Relationship="Self.fk_TakipEdilenBilgi" FromRole="TakipEdilenler" ToRole="TakipEdilenBilgileri" />
+  </EntityType>
+  <EntityType Name="TakipEtmeBilgileri">
+    <Key>
+      <PropertyRef Name="TakipEtBilgiId" />
+    </Key>
+    <Property Name="TakipEtBilgiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TakipEtId" Type="Int32" Nullable="false" />
+    <Property Name="KullaniciId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TakipEdenler" Relationship="Self.fk_TakipEtBilgi" FromRole="TakipEtmeBilgileri" ToRole="TakipEdenler" />
+  </EntityType>
+  <EntityType Name="Yorumlar">
+    <Key>
+      <PropertyRef Name="YorumId" />
+    </Key>
+    <Property Name="YorumId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EtkilesimId" Type="Int32" Nullable="false" />
+    <Property Name="KullaniciId" Type="Int32" Nullable="false" />
+    <Property Name="YorumTipi" Type="Int32" Nullable="false" />
+    <Property Name="YapilmaZamani" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Etkilesimler" Relationship="Self.fk_YorumEtkilesim" FromRole="Yorumlar" ToRole="Etkilesimler" />
+    <NavigationProperty Name="Kullanicilar" Relationship="Self.fk_KullaniciYorum" FromRole="Yorumlar" ToRole="Kullanicilar" />
+    <NavigationProperty Name="YorumMetinleri" Relationship="Self.fk_YorumIdMetin" FromRole="Yorumlar" ToRole="YorumMetinleri" />
+    <NavigationProperty Name="Resimler" Relationship="Self.YorumResimleri" FromRole="Yorumlar" ToRole="Resimler" />
+  </EntityType>
+  <EntityType Name="PaylasimMetinleri">
+    <Key>
+      <PropertyRef Name="PaylasimId" />
+      <PropertyRef Name="GirilenMetin" />
+    </Key>
+    <Property Name="PaylasimId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="GirilenMetin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Paylasimlar" Relationship="Self.fk_PaylasimMetni" FromRole="PaylasimMetinleri" ToRole="Paylasimlar" />
+  </EntityType>
+  <EntityType Name="YorumMetinleri">
+    <Key>
+      <PropertyRef Name="YorumId" />
+      <PropertyRef Name="YorumMetni" />
+    </Key>
+    <Property Name="YorumId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="YorumMetni" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Yorumlar" Relationship="Self.fk_YorumIdMetin" FromRole="YorumMetinleri" ToRole="Yorumlar" />
+  </EntityType>
+  <Association Name="fk_BlokKullanici">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BlokBilgileri" Type="Self.BlokBilgileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciId" />
+      </Principal>
+      <Dependent Role="BlokBilgileri">
+        <PropertyRef Name="KullaniciId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_BlokPaylasim">
+    <End Role="BloklananPaylasimlar" Type="Self.BloklananPaylasimlar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BlokBilgileri" Type="Self.BlokBilgileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BloklananPaylasimlar">
+        <PropertyRef Name="BlokPaylasimId" />
+      </Principal>
+      <Dependent Role="BlokBilgileri">
+        <PropertyRef Name="BlokPaylasimId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PaylasimBlok">
+    <End Role="Paylasimlar" Type="Self.Paylasimlar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BloklananPaylasimlar" Type="Self.BloklananPaylasimlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paylasimlar">
+        <PropertyRef Name="PaylasimId" />
+      </Principal>
+      <Dependent Role="BloklananPaylasimlar">
+        <PropertyRef Name="PaylasimId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EtkilesimEntry">
+    <End Role="Paylasimlar" Type="Self.Paylasimlar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Etkilesimler" Type="Self.Etkilesimler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paylasimlar">
+        <PropertyRef Name="PaylasimId" />
+      </Principal>
+      <Dependent Role="Etkilesimler">
+        <PropertyRef Name="PaylasimId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_YorumEtkilesim">
+    <End Role="Etkilesimler" Type="Self.Etkilesimler" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Yorumlar" Type="Self.Yorumlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Etkilesimler">
+        <PropertyRef Name="EtkilesimId" />
+      </Principal>
+      <Dependent Role="Yorumlar">
+        <PropertyRef Name="EtkilesimId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_KategoriPaylasim">
+    <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Paylasimlar" Type="Self.Paylasimlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategoriler">
+        <PropertyRef Name="KategoriId" />
+      </Principal>
+      <Dependent Role="Paylasimlar">
+        <PropertyRef Name="KategoriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_KullaniciPaylasim">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+    <End Role="Paylasimlar" Type="Self.Paylasimlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciId" />
+      </Principal>
+      <Dependent Role="Paylasimlar">
+        <PropertyRef Name="KullaniciId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_KullaniciTakipEt">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TakipEdenler" Type="Self.TakipEdenler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciId" />
+      </Principal>
+      <Dependent Role="TakipEdenler">
+        <PropertyRef Name="KullaniciId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_KullaniciYorum">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Yorumlar" Type="Self.Yorumlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciId" />
+      </Principal>
+      <Dependent Role="Yorumlar">
+        <PropertyRef Name="KullaniciId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_RaporBilgiKullanici">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="RaporBilgileri" Type="Self.RaporBilgileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciId" />
+      </Principal>
+      <Dependent Role="RaporBilgileri">
+        <PropertyRef Name="KullaniciId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TakipEdilenKullanici">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TakipEdilenler" Type="Self.TakipEdilenler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciId" />
+      </Principal>
+      <Dependent Role="TakipEdilenler">
+        <PropertyRef Name="KullaniciId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PaylasimMetni">
+    <End Role="Paylasimlar" Type="Self.Paylasimlar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PaylasimMetinleri" Type="Self.PaylasimMetinleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paylasimlar">
+        <PropertyRef Name="PaylasimId" />
+      </Principal>
+      <Dependent Role="PaylasimMetinleri">
+        <PropertyRef Name="PaylasimId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PaylasimRapor">
+    <End Role="Paylasimlar" Type="Self.Paylasimlar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="RaporlananPaylasimlar" Type="Self.RaporlananPaylasimlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paylasimlar">
+        <PropertyRef Name="PaylasimId" />
+      </Principal>
+      <Dependent Role="RaporlananPaylasimlar">
+        <PropertyRef Name="PaylasimId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_RaporBilgiId">
+    <End Role="RaporlananPaylasimlar" Type="Self.RaporlananPaylasimlar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="RaporBilgileri" Type="Self.RaporBilgileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RaporlananPaylasimlar">
+        <PropertyRef Name="RaporId" />
+      </Principal>
+      <Dependent Role="RaporBilgileri">
+        <PropertyRef Name="RaporId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TakipEtBilgi">
+    <End Role="TakipEdenler" Type="Self.TakipEdenler" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TakipEtmeBilgileri" Type="Self.TakipEtmeBilgileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TakipEdenler">
+        <PropertyRef Name="TakipEtId" />
+      </Principal>
+      <Dependent Role="TakipEtmeBilgileri">
+        <PropertyRef Name="TakipEtId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TakipEdilenBilgi">
+    <End Role="TakipEdilenler" Type="Self.TakipEdilenler" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TakipEdilenBilgileri" Type="Self.TakipEdilenBilgileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TakipEdilenler">
+        <PropertyRef Name="TakipEdilenId" />
+      </Principal>
+      <Dependent Role="TakipEdilenBilgileri">
+        <PropertyRef Name="TakipEdilenId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_YorumIdMetin">
+    <End Role="Yorumlar" Type="Self.Yorumlar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="YorumMetinleri" Type="Self.YorumMetinleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Yorumlar">
+        <PropertyRef Name="YorumId" />
+      </Principal>
+      <Dependent Role="YorumMetinleri">
+        <PropertyRef Name="YorumId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EtkilesimDislike">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="*" />
+    <End Role="Etkilesimler" Type="Self.Etkilesimler" Multiplicity="*" />
+  </Association>
+  <Association Name="EtkilesimLike">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="*" />
+    <End Role="Etkilesimler" Type="Self.Etkilesimler" Multiplicity="*" />
+  </Association>
+  <Association Name="PaylasimResimleri">
+    <End Role="Paylasimlar" Type="Self.Paylasimlar" Multiplicity="*" />
+    <End Role="Resimler" Type="Self.Resimler" Multiplicity="*" />
+  </Association>
+  <Association Name="ProfilResimleri">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="*" />
+    <End Role="Resimler" Type="Self.Resimler" Multiplicity="*" />
+  </Association>
+  <Association Name="YorumResimleri">
+    <End Role="Resimler" Type="Self.Resimler" Multiplicity="*" />
+    <End Role="Yorumlar" Type="Self.Yorumlar" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="SozlukEntitiesTest" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BlokBilgileri" EntityType="Self.BlokBilgileri" />
+    <EntitySet Name="BloklananPaylasimlar" EntityType="Self.BloklananPaylasimlar" />
+    <EntitySet Name="Etkilesimler" EntityType="Self.Etkilesimler" />
+    <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" />
+    <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" />
+    <EntitySet Name="Paylasimlar" EntityType="Self.Paylasimlar" />
+    <EntitySet Name="RaporBilgileri" EntityType="Self.RaporBilgileri" />
+    <EntitySet Name="RaporlananPaylasimlar" EntityType="Self.RaporlananPaylasimlar" />
+    <EntitySet Name="Resimler" EntityType="Self.Resimler" />
+    <EntitySet Name="TakipEdenler" EntityType="Self.TakipEdenler" />
+    <EntitySet Name="TakipEdilenBilgileri" EntityType="Self.TakipEdilenBilgileri" />
+    <EntitySet Name="TakipEdilenler" EntityType="Self.TakipEdilenler" />
+    <EntitySet Name="TakipEtmeBilgileri" EntityType="Self.TakipEtmeBilgileri" />
+    <EntitySet Name="Yorumlar" EntityType="Self.Yorumlar" />
+    <EntitySet Name="PaylasimMetinleri" EntityType="Self.PaylasimMetinleri" />
+    <EntitySet Name="YorumMetinleri" EntityType="Self.YorumMetinleri" />
+    <AssociationSet Name="fk_BlokKullanici" Association="Self.fk_BlokKullanici">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="BlokBilgileri" EntitySet="BlokBilgileri" />
+    </AssociationSet>
+    <AssociationSet Name="fk_BlokPaylasim" Association="Self.fk_BlokPaylasim">
+      <End Role="BloklananPaylasimlar" EntitySet="BloklananPaylasimlar" />
+      <End Role="BlokBilgileri" EntitySet="BlokBilgileri" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PaylasimBlok" Association="Self.fk_PaylasimBlok">
+      <End Role="Paylasimlar" EntitySet="Paylasimlar" />
+      <End Role="BloklananPaylasimlar" EntitySet="BloklananPaylasimlar" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EtkilesimEntry" Association="Self.fk_EtkilesimEntry">
+      <End Role="Paylasimlar" EntitySet="Paylasimlar" />
+      <End Role="Etkilesimler" EntitySet="Etkilesimler" />
+    </AssociationSet>
+    <AssociationSet Name="fk_YorumEtkilesim" Association="Self.fk_YorumEtkilesim">
+      <End Role="Etkilesimler" EntitySet="Etkilesimler" />
+      <End Role="Yorumlar" EntitySet="Yorumlar" />
+    </AssociationSet>
+    <AssociationSet Name="fk_KategoriPaylasim" Association="Self.fk_KategoriPaylasim">
+      <End Role="Kategoriler" EntitySet="Kategoriler" />
+      <End Role="Paylasimlar" EntitySet="Paylasimlar" />
+    </AssociationSet>
+    <AssociationSet Name="fk_KullaniciPaylasim" Association="Self.fk_KullaniciPaylasim">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="Paylasimlar" EntitySet="Paylasimlar" />
+    </AssociationSet>
+    <AssociationSet Name="fk_KullaniciTakipEt" Association="Self.fk_KullaniciTakipEt">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="TakipEdenler" EntitySet="TakipEdenler" />
+    </AssociationSet>
+    <AssociationSet Name="fk_KullaniciYorum" Association="Self.fk_KullaniciYorum">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="Yorumlar" EntitySet="Yorumlar" />
+    </AssociationSet>
+    <AssociationSet Name="fk_RaporBilgiKullanici" Association="Self.fk_RaporBilgiKullanici">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="RaporBilgileri" EntitySet="RaporBilgileri" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TakipEdilenKullanici" Association="Self.fk_TakipEdilenKullanici">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="TakipEdilenler" EntitySet="TakipEdilenler" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PaylasimMetni" Association="Self.fk_PaylasimMetni">
+      <End Role="Paylasimlar" EntitySet="Paylasimlar" />
+      <End Role="PaylasimMetinleri" EntitySet="PaylasimMetinleri" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PaylasimRapor" Association="Self.fk_PaylasimRapor">
+      <End Role="Paylasimlar" EntitySet="Paylasimlar" />
+      <End Role="RaporlananPaylasimlar" EntitySet="RaporlananPaylasimlar" />
+    </AssociationSet>
+    <AssociationSet Name="fk_RaporBilgiId" Association="Self.fk_RaporBilgiId">
+      <End Role="RaporlananPaylasimlar" EntitySet="RaporlananPaylasimlar" />
+      <End Role="RaporBilgileri" EntitySet="RaporBilgileri" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TakipEtBilgi" Association="Self.fk_TakipEtBilgi">
+      <End Role="TakipEdenler" EntitySet="TakipEdenler" />
+      <End Role="TakipEtmeBilgileri" EntitySet="TakipEtmeBilgileri" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TakipEdilenBilgi" Association="Self.fk_TakipEdilenBilgi">
+      <End Role="TakipEdilenler" EntitySet="TakipEdilenler" />
+      <End Role="TakipEdilenBilgileri" EntitySet="TakipEdilenBilgileri" />
+    </AssociationSet>
+    <AssociationSet Name="fk_YorumIdMetin" Association="Self.fk_YorumIdMetin">
+      <End Role="Yorumlar" EntitySet="Yorumlar" />
+      <End Role="YorumMetinleri" EntitySet="YorumMetinleri" />
+    </AssociationSet>
+    <AssociationSet Name="EtkilesimDislike" Association="Self.EtkilesimDislike">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="Etkilesimler" EntitySet="Etkilesimler" />
+    </AssociationSet>
+    <AssociationSet Name="EtkilesimLike" Association="Self.EtkilesimLike">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="Etkilesimler" EntitySet="Etkilesimler" />
+    </AssociationSet>
+    <AssociationSet Name="PaylasimResimleri" Association="Self.PaylasimResimleri">
+      <End Role="Paylasimlar" EntitySet="Paylasimlar" />
+      <End Role="Resimler" EntitySet="Resimler" />
+    </AssociationSet>
+    <AssociationSet Name="ProfilResimleri" Association="Self.ProfilResimleri">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="Resimler" EntitySet="Resimler" />
+    </AssociationSet>
+    <AssociationSet Name="YorumResimleri" Association="Self.YorumResimleri">
+      <End Role="Resimler" EntitySet="Resimler" />
+      <End Role="Yorumlar" EntitySet="Yorumlar" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
